@@ -1,13 +1,15 @@
-$size: 100px;
+$size: 101px;
+
 $week-days: (
-  "mon": 1,
-  "tue": 2,
-  "wed": 3,
-  "thu": 4,
-  "fri": 5,
-  "sat": 6,
-  "sun": 7
+  "mon": 0,
+  "tue": 1,
+  "wed": 2,
+  "thu": 3,
+  "fri": 4,
+  "sat": 5,
+  "sun": 6
 );
+
 $daysInMonth: (
   28,
   29,
@@ -24,23 +26,31 @@ body {
 }
 
 .calendar {
-  max-width: $size * 7 + 7px;
+  max-width: $size * 7;
   margin: 10% auto;
   display: flex;
   flex-wrap: wrap;
 
   & > div {
     display: none;
-    height: $size;
+    flex: 0 0 ($size - 1px);
+    height: $size - 1px;
     background-color: #eee;
     border: 1px solid black;
     margin: 1px 1px 0 0;
-    flex: 0 0 $size;
-    font-size: 30px;
+    
     font-family: Arial, sans-serif;
+    font-size: 30px;
     text-align: center;
+
     cursor: pointer;
-    transition: all 500ms;
+    transition: 500ms;
+
+    &::before {
+      content: "";
+      line-height: $size;
+      display: block;
+    }
 
     &:hover {
       background-color: pink;
@@ -49,9 +59,9 @@ body {
   }
 }
 
-@each $day, $number in $week-days {
+@each $day, $column in $week-days {
   .calendar-#{$day} > div:first-child {
-    margin-left: 101px * ($number - 1);
+    margin-left: $size * ($column);
   }
 }
 
@@ -63,8 +73,6 @@ body {
   @for $i from 1 through $sum {
     .calendar > div:nth-child(#{$i}):before {
       content: "#{$i}";
-      line-height: $size;
-      display: block;
     }
   }
 }
