@@ -70,9 +70,10 @@ body {
     display: block;
   }
 
-  @for $i from 1 through $sum {
-    .calendar > div:nth-child(#{$i}):before {
-      content: "#{$i}";
-    }
+}
+
+@for $i from 1 through 31 {
+  .calendar > div:nth-child(#{$i}):before {
+    content: "#{$i}";
   }
 }
